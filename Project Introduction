@@ -1,0 +1,17 @@
+# Weather Station Project
+
+This project utilizes an Arduino to create a weather station that collects and displays real-time weather data, including temperature, humidity, atmospheric pressure, and wind speed. Designed for educational purposes, it allows users to monitor environmental conditions via an LCD interface.
+
+## Features
+- **Sensor Integration:** Collects accurate weather data using various sensors.
+- **Real-Time Display:** Shows current weather conditions on an LCD screen.
+- **Data Logging:** Future implementation for logging data over time.
+- **Wireless Communication:** Plans for remote access to weather data.
+
+## Technologies Used
+- Arduino Uno (or compatible board)
+- DHT11/DHT22 (Temperature and Humidity Sensor)
+- BMP180 (Barometric Pressure Sensor)
+- Anemometer (Wind Speed Sensor)
+- LCD Display
+

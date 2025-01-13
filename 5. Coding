@@ -1,0 +1,25 @@
+#include <DHT.h>
+#include <Wire.h>
+#include <Adafruit_Sensor.h>
+#include <Adafruit_BMP085_U.h>
+#include <LiquidCrystal_I2C.h>
+
+
+// Define sensors
+#define DHTPIN 2
+#define DHTTYPE DHT22  // Use DHT11 if you're using a DHT11 sensor
+DHT dht(DHTPIN, DHTTYPE);
+
+Adafruit_BMP085_Unified bmp;  // BMP180 atmospheric pressure sensor
+LiquidCrystal_I2C lcd(0x27, 16, 2);  // LCD screen
+
+const int chipSelect = 4;  // SD card chip select pin (optional)
+
+// Setup function to initialize sensors and LCD
+void setup() {
+  // Initialize LCD screen
+  lcd.begin(16, 2);
+  lcd.print("Weather Station");
+
+  // Initialize DHT sensor
+  dht.begin();

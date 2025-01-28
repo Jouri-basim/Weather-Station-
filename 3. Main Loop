@@ -1,4 +1,0 @@
-- The `loop()` function continuously reads data from the sensors every 5 seconds.
-   - It reads temperature and humidity from the DHT22 sensor, pressure from the BMP180 sensor, and wind speed from an anemometer (connected to an analog pin).
-   - The data is displayed on the LCD screen .
-   - The `checkForAlerts()` function checks if the weather conditions exceed predefined thresholds and displays alerts on the LCD screen if necessary.

@@ -1,36 +1,31 @@
-#include <DHT.h>
-#include <LiquidCrystal_I2C.h>
+#include <DHT.h>                // Include the DHT library for temperature and humidity sensor
+#include <LiquidCrystal_I2C.h> // Include the LiquidCrystal_I2C library for the LCD
 
-DHT dht (2, DHT11) ;
+DHT dht(2, DHT11);              // Initialize the DHT sensor on pin 2 with DHT11 type
 
-int temp;
-int humidity;
+int temp;                       // Variable to store temperature value
+int humidity;                   // Variable to store humidity value
 
-LiquidCrystal_I2C lcd (0x27, 16, 2) ;
+LiquidCrystal_I2C lcd(0x27, 16, 2); // Initialize the LCD with I2C address 0x27, 16 columns, and 2 rows
 
-
-void setup () {
-
-dht.begin () ;
-
-lcd.init () ;
-lcd.backlight () ;
-
+void setup() {
+    dht.begin();               // Start the DHT sensor
+    lcd.init();               // Initialize the LCD
+    lcd.backlight();          // Turn on the LCD backlight
 }
 
-void loop () {
+void loop() {
+    delay(2000);              // Wait for 2 seconds before taking readings
+    temp = dht.readTemperature(); // Read temperature from the DHT sensor
+    humidity = dht.readHumidity(); // Read humidity from the DHT sensor
 
-delay (2000) ;
-temp= dht.readTemperature () ; 
-humidity= dht.readHumidity () ;
+    lcd.setCursor(0, 0);      // Set cursor to the first row
+    lcd.print("Temp: ");      // Print "Temp: " on the LCD
+    lcd.print(temp);          // Print the temperature value
+    lcd.print(" C");          // Print the degree Celsius symbol
 
-lcd. setCursor (0,0) ;
-lcd. print("Temp: ");
-lcd.print(temp) ; 
-lcd.print(" C");
-
-lcd.setCursor (0,1) ;
-lcd.print("Humidity: ");
-lcd.print(humidity) ;
-lcd.print(" &") ;
+    lcd.setCursor(0, 1);      // Set cursor to the second row
+    lcd.print("Humidity: ");   // Print "Humidity: " on the LCD
+    lcd.print(humidity);      // Print the humidity value
+    lcd.print(" %");          // Print the percentage symbol
 }

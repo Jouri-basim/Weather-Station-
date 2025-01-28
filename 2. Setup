@@ -1,2 +1,0 @@
-   - The `setup()` function initializes the LCD screen, DHT sensor, BMP180 sensor.
-If any sensor or device fails to initialize, an error message is displayed on the LCD screen, and the program halts.

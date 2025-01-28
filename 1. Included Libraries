@@ -1,4 +1,0 @@
-   - `DHT.h`: Library for reading data from the DHT22 temperature and humidity sensor.
-   - `Adafruit_Sensor.h` and `Adafruit_BMP085_U.h`: Libraries for reading atmospheric pressure data from the BMP180 sensor.
-   - `LiquidCrystal_I2C.h`: Library for controlling the LCD screen using I2C protocol.
-   - `SD.h`: Library for enabling data logging to an SD card.

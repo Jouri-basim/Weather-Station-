@@ -1,0 +1,48 @@
+#include <Adafruit_BMP085_U.h>
+#include <Wire.h>
+#include <LiquidCrystal_I2C.h>
+
+// Create object for the sensor
+Adafruit_BMP085_Unified bmp;
+
+// Set up the LCD
+LiquidCrystal_I2C lcd(0x27, 16, 2); // Ensure the I2C address of the display
+
+void setup() {
+    // Check if the sensor is working properly
+    if (!bmp.begin()) {
+        lcd.begin(16, 2);
+        lcd.backlight();
+        lcd.print("Sensor Error!");
+        while (1); // Stop if unable to connect
+    }
+
+    // Set up the LCD
+    lcd.begin(16, 2);
+    lcd.backlight();
+
+    delay(2000);
+    lcd.clear();
+}
+
+void loop() {
+    sensors_event_t event;
+    bmp.getEvent(&event);
+
+    lcd.clear(); // Clear the screen before each update
+    if (event.pressure) {
+        // Display atmospheric pressure
+        lcd.setCursor(0, 0);
+        lcd.print("Pressure:");
+        lcd.setCursor(0, 1);
+        lcd.print(event.pressure);
+        lcd.print(" hPa");
+    } else {
+        lcd.setCursor(0, 0);
+        lcd.print("No Data");
+        lcd.setCursor(0, 1);
+        lcd.print("Available.");
+    }
+
+    delay(2000); // Delay for 2 seconds
+}

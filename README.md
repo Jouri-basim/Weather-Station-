@@ -34,6 +34,7 @@ This project is designed to create a weather station that collects and displays 
 | **Breadboard**                   | For building and testing circuits   |
 | **Connecting Wires**             | Jumper Wires                        |
 | **Power Supply**                 | USB Power Source                    |
+| **Buzzer**                       | Sound alert                    |
 
 ### Software Requirements
 

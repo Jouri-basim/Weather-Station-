@@ -1,0 +1,110 @@
+#include <DHT.h>
+#include <Adafruit_Sensor.h>
+#include <Adafruit_BMP085_U.h>
+#include <Wire.h>
+#include <LiquidCrystal_I2C.h>
+
+// DHT sensor setup
+DHT dht(2, DHT11); // Data pin connected to D2
+
+// BMP085 sensor setup
+Adafruit_BMP085_Unified bmp;
+
+// LCD setup
+LiquidCrystal_I2C lcd(0x27, 16, 2); // Ensure the correct I2C address
+
+// Buzzer setup
+#define buzzer 9         // Buzzer connected to pin D9
+#define tempThreshold 24 // Temperature threshold to trigger the buzzer
+
+void setup() {
+    // Initialize DHT sensor
+    dht.begin();
+    
+    // Initialize buzzer
+    pinMode(buzzer, OUTPUT);
+    digitalWrite(buzzer, LOW); // Ensure the buzzer is OFF initially
+    
+    // Initialize BMP085 sensor
+    if (!bmp.begin()) {
+        lcd.begin(16, 2);
+        lcd.backlight();
+        lcd.print("Sensor Error!");
+        while (1); // Stop execution if the sensor is not detected
+    }
+    
+    // Initialize LCD
+    lcd.begin(16, 2);
+    lcd.backlight();
+    lcd.print("Sensors Ready!");
+    delay(5000);
+    lcd.clear();
+}
+
+void loop() {
+    // Read temperature and humidity
+    float temp = dht.readTemperature();
+    float humidity = dht.readHumidity();
+
+    // Display temperature first
+    lcd.clear();
+    lcd.setCursor(0, 0);
+    lcd.print("Temp: ");
+    lcd.setCursor(0, 1);
+    lcd.print(temp);
+    lcd.print(" C");
+
+    delay(2000);
+
+    // If temperature exceeds the threshold, activate the buzzer
+    if (temp > tempThreshold) {
+        // Display warning message
+        lcd.clear();
+        lcd.setCursor(0, 0);
+        lcd.print("High Temp Alert!");
+        lcd.setCursor(0, 1);
+        lcd.print("Temp: ");
+        lcd.print(temp);
+        lcd.print(" C");
+
+        // Buzzer beeps 3 times
+        for (int i = 0; i < 3; i++) {
+            digitalWrite(buzzer, HIGH);
+            delay(500);
+            digitalWrite(buzzer, LOW);
+            delay(500);
+        }
+        
+        delay(2000); // Wait after alert
+    }
+
+    // Display humidity
+    lcd.clear();
+    lcd.setCursor(0, 0);
+    lcd.print("Humidity:");
+    lcd.setCursor(0, 1);
+    lcd.print(humidity);
+    lcd.print(" %");
+
+    delay(5000);
+
+    // Read and display atmospheric pressure
+    sensors_event_t event;
+    bmp.getEvent(&event);
+
+    lcd.clear();
+    if (event.pressure) {
+        lcd.setCursor(0, 0);
+        lcd.print("Pressure:");
+        lcd.setCursor(0, 1);
+        lcd.print(event.pressure);
+        lcd.print(" hPa");
+    } else {
+        lcd.setCursor(0, 0);
+        lcd.print("No Data");
+        lcd.setCursor(0, 1);
+        lcd.print("Available.");
+    }
+
+    delay(5000);
+}

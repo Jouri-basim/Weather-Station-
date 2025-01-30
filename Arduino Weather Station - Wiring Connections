@@ -1,0 +1,34 @@
+
+1. LCD 16x2 Display (with I2C module)  
+- VCC → 5V (Power)  
+- GND → GND (Ground)  
+- SDA → A4 (I2C Data)  
+- SCL → A5 (I2C Clock)  
+
+*If the LCD does not have an I2C module, you will need 6-8 additional wires for direct connection to the Arduino.*
+
+---
+
+2. Temperature & Humidity Sensor (DHT11)  
+- VCC → 5V (Power)  
+- GND → GND (Ground)  
+- DATA → D2 (or any digital pin)  
+---
+
+3. Barometric Pressure Sensor (BMP180)  
+- VCC → 3.3V (Do NOT connect to 5V to avoid damage)  
+- GND → GND (Ground)  
+- SDA → A4 (I2C Data)  
+- SCL → A5 (I2C Clock)  
+
+---
+
+4. Active Buzzer  
+- Positive (+) wire → Any digital pin (e.g., D9)  
+- Negative (-) wire → GND  
+
+---
+
+-- Notes:  
+- Use a Breadboard to connect all GND and VCC wires easily.  
+- If the LCD or BMP180 does not work, try changing the I2C address in the code (0x27 or 0x3F).
